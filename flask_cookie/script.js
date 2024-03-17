@@ -4,7 +4,7 @@ import { inflate } from "./pako.esm.mjs";
 document.getElementById('decoderForm').addEventListener('submit', function (event) {
     event.preventDefault();
 
-    document.getElementById('jwtOutput').textContent = '';
+    document.getElementById('jwtOutput').style.display = 'none';
     document.getElementById('output').textContent = '';
 
     let inputParts = document.getElementById('cookieInput').value.split('.');
@@ -36,14 +36,20 @@ function processDecodedData(decodedData) {
         const formattedJson = JSON.stringify(JSON.parse(decodedData), null, 4);
         document.getElementById('output').textContent = formattedJson;
         if (isJwt(decodedData)) {
-            addJwtDecodeButton(decodedData);
+            displayJwtData(decodedData);
         }
     } catch (jsonError) {
         document.getElementById('output').textContent = decodedData;
         if (isJwt(decodedData)) {
-            addJwtDecodeButton(decodedData);
+            displayJwtData(decodedData);
         }
     }
+}
+
+function displayJwtData(jwtData) {
+    const decodedJwt = jwtDecode(jwtData);
+    document.getElementById('jwtOutput').style.display = 'block';
+    document.getElementById('jwtOutput').textContent = JSON.stringify(decodedJwt, null, 4);
 }
 
 function isJwt(data) {
@@ -54,18 +60,3 @@ function isJwt(data) {
         return false;
     }
 }
-
-function addJwtDecodeButton(jwtData) {
-    const btnExists = document.querySelector('.decodeJwtBtn');
-    if (!btnExists) {
-        const button = document.createElement('button');
-        button.textContent = 'Decode JWT';
-        button.classList.add('decodeJwtBtn');
-        button.onclick = function () {
-            const decodedJwt = jwtDecode(jwtData);
-            document.getElementById('jwtOutput').textContent = JSON.stringify(decodedJwt, null, 4);
-        };
-        document.body.appendChild(button);
-    }
-}
-
