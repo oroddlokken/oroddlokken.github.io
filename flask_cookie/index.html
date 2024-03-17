@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Flask session cookie decoder</title>
+        <script src='script.js' type="module"></script>
+        <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+        }
+
+        #decoderForm {
+            margin-bottom: 20px;
+        }
+
+        #cookieInput, #output, #jwtOutput {
+            width: 100%;
+            max-width: 600px;
+            min-height: 100px;
+            padding: 10px;
+            box-sizing: border-box;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            resize: vertical;
+        }
+
+        #cookieInput {
+            margin-bottom: 10px;
+        }
+
+        #output, #jwtOutput {
+            white-space: pre-wrap;
+            background-color: #f8f8f8;
+            margin-top: 20px;
+            overflow-wrap: break-word;
+        }
+
+        input[type="submit"], .decodeJwtBtn {
+            background-color: #4CAF50;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+        }
+
+        input[type="submit"]:hover, .decodeJwtBtn:hover {
+            background-color: #45a049;
+        }
+
+        label {
+            font-weight: bold;
+        }
+        </style>
+    </head>
+    <body>
+        <h2>Flask session cookie decoder with JWT support</h2>
+        <form id="decoderForm">
+            <label for="cookieInput">Enter cookie payload:</label>
+            <br>
+            <textarea id="cookieInput" name="cookieInput"></textarea>
+            <br>
+            <input type="submit" value="Decode">
+        </form>
+        <div id="output"></div>
+        <div id="jwtOutput"></div>
+    </body>
+</html>
